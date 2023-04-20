@@ -43,27 +43,6 @@
 }}
 
 
-\newlength{\logicv}
-\setlength{\logicv}{.1cm}
-
-\newenvironment{proofbox}[2][5]{
-  %begin
-  \begin{tcolorbox}[demo, title = {#2}]
-  \vspace*{#1\logicv}
-}{
-  %end
-  \end{tcolorbox}
-}
-
-\newenvironment{subproofbox}[2][5]{
-  %begin
-  \begin{tcolorbox}[demo, title = {#2}, colframe = subproofm]
-  \vspace*{#1\logicv}
-}{
-  %end
-  \end{tcolorbox}
-}
-
 
 
 \NewDocumentCommand\To{}{\Rightarrow}
@@ -86,6 +65,33 @@
 
 \NewDocumentCommand\theo{O{}mm}%
   { #1 \vdash_{\text{#2}} #3 }
+
+
+\newlength{\pbox}
+\setlength{\pbox}{.1cm}
+
+
+\NewDocumentEnvironment{proofbox}{s O{5} m}
+{
+  \IfBooleanTF{#1}
+  {
+    \begin{tcolorbox}[demo, title={#3}, colframe=subproofm]
+    \vspace{#2\pbox}
+  }
+  {
+    \begin{tcolorbox}[demo, title={#3}]
+    \vspace{#2\pbox}
+  }
+}{
+  \IfBooleanTF{#1}
+  {
+    \end{tcolorbox}
+  }
+  {
+    \end{tcolorbox}
+  }
+}
+
 
 \NewDocumentEnvironment{derivation}{D<>{1.2} O{0pt}}{
   % begin
